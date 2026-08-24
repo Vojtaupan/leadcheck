@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renderTable > matches the golden output 1`] = `
+"
+leadcheck  3 rows, 2 domains
+
+  BOUNCE FLOOR       33.3%       1  FAIL  over the 2% limit
+      nxdomain                     1
+
+  RISK               33.3%       1
+      role_inbox                   1
+
+  OTHER
+      duplicate_in_list            0
+      already_contacted            0
+      free_provider                0
+
+  PROVIDER MIX (deliverable rows)
+      google                       2     100%
+"
+`;
