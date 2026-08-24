@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import { readFile, writeFile } from 'node:fs/promises';
-import { parseArgs } from './args.js';
+import { parseArgs, HELP } from './args.js';
 import { run, EXIT_USAGE } from './run.js';
 import { selectResolver, ResolverUnavailableError } from './resolve/preflight.js';
-import { HELP } from './args.js';
 
 /** Read the whole of stdin, for `leadcheck -`. */
 async function readStdin(): Promise<string> {

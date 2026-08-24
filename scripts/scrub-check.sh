@@ -19,6 +19,13 @@ tracked() {
   git ls-files "$@"
 }
 
+# This script necessarily contains the very patterns it forbids, so it must be
+# excluded from its own scan. Without this it fails the moment it is committed.
+SELF='scripts/scrub-check.sh'
+scannable() {
+  git ls-files "$@" | grep -vxF "$SELF"
+}
+
 report() {
   fail=1
   echo "scrub-check: FAIL - $1"
@@ -39,9 +46,10 @@ FORBIDDEN_PATTERNS=(
 )
 
 for pattern in "${FORBIDDEN_PATTERNS[@]}"; do
-  if tracked | xargs grep -lEi -- "$pattern" 2>/dev/null | grep -q .; then
+  hits=$(scannable | xargs grep -lEi -- "$pattern" 2>/dev/null || true)
+  if [ -n "$hits" ]; then
     report "forbidden pattern '$pattern' found in:"
-    tracked | xargs grep -lEi -- "$pattern" 2>/dev/null | sed 's/^/    /'
+    echo "$hits" | sed 's/^/    /'
   fi
 done
 
@@ -57,7 +65,7 @@ done
 ALLOWED_ADDR='@(-?x\.\.?com|example\.(com|org|net)|acme(-corp)?\.com|good\.com|gone\.com|x\.com|y\.com|z\.com|b\.com|g\.com|a\.com|iana\.org|gmail\.com|googlemail\.com|mailinator\.com|yahoo\.co\.uk|[a-z0-9-]*\.invalid|[a-z0-9-]*\.test|[a-z0-9-]*\.example)'
 
 leaked_addresses=$(
-  tracked '*.ts' '*.md' '*.json' '*.yml' '*.sh' \
+  scannable '*.ts' '*.md' '*.json' '*.yml' '*.sh' \
     | xargs grep -hoEi '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}' 2>/dev/null \
     | grep -viE "$ALLOWED_ADDR" \
     | sort -u || true
