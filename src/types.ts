@@ -83,6 +83,8 @@ export interface Report {
   bounce: { rows: number; pct: number; causes: Record<string, number> };
   risk: { rows: number; pct: number; causes: Record<string, number> };
   duplicates: { duplicateInList: number; alreadyContacted: number };
+  /** Consumer-mailbox rows. Informational: no deliverability risk attaches. */
+  freeProvider: number;
   providerMix: Record<string, number>;
   unknown: { rows: number; domains: number };
   results: RowResult[];
