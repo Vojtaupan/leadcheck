@@ -1,0 +1,26 @@
+{
+  "name": "leadcheck",
+  "version": "0.1.0",
+  "description": "DNS-only pre-flight gate for cold-email lead lists: predicted hard-bounce floor, provider mix, secure-email-gateway detection.",
+  "type": "module",
+  "bin": { "leadcheck": "dist/cli.js" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "keywords": ["cold-email", "deliverability", "bounce", "email-list", "email-validation", "dns", "mx", "outbound", "cli"],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}
