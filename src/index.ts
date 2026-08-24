@@ -1,0 +1,17 @@
+export { parseCsv, toCsv } from './input/csv.js';
+export { detectEmailColumn, buildRows } from './input/columns.js';
+export { classifyAddress, domainOf, dedupeKey } from './classify/address.js';
+export { classifyDomain } from './classify/domain.js';
+export { loadLedger, markDuplicates } from './analyze/dedupe.js';
+export { buildReport, DROP_FLAGS, DEAD_STATUSES } from './analyze/report.js';
+export { resolveAll } from './resolve/pool.js';
+export { NodeDnsResolver } from './resolve/resolver.js';
+export { FixtureResolver } from './resolve/fixture.js';
+export { selectResolver, ResolverUnavailableError } from './resolve/preflight.js';
+export { renderTable } from './report/table.js';
+export { renderJson } from './report/json.js';
+export { renderCleaned, renderRejects } from './report/csv-out.js';
+export { parseArgs } from './args.js';
+export { run } from './run.js';
+export { VERSION } from './version.js';
+export type * from './types.js';
